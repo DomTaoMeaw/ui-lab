@@ -10,6 +10,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+
 abstract class BaseTest {
 
     protected WebDriver driver;
@@ -40,6 +49,21 @@ abstract class BaseTest {
     void closeBrowser() {
         if (driver != null) {
             driver.quit();
+        }
+    }
+    // Saves what the browser shows now as screenshots/<name>.png.
+    protected void shot(String name) {
+        File png = ((TakesScreenshot) driver)
+                .getScreenshotAs(OutputType.FILE);
+
+        Path target = Path.of("screenshots", name + ".png");
+
+        try {
+            Files.createDirectories(target.getParent());
+            Files.copy(png.toPath(), target,
+                    StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            throw new UncheckedIOException(e);
         }
     }
 }
