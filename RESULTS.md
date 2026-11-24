@@ -22,7 +22,7 @@ Tool parts that I chose: Part 2 and Part 4
 | 2 | Opened Advanced and checked the four advanced fields. | Pass |
 | 3 | Entered 600 calories, excluded Knife, selected vegetarian, and entered Lab Pizza 20261124-2222. | Pass |
 | 4 | Received Lab Pizza 20261124-2222 with Scissors and 300 calories per slice. | Pass |
-| 5 | [Enter the actual result after clicking Love it!] | Pass |
+| 5 | Clicked Love it! without logging in. The page displayed "Please log in first." | Pass |
 | 6 | Opened the admin page, logged in with admin/admin, and found "Latest pizza recommendations". | Pass |
 | 7 | Refreshed the admin page and searched again, but Lab Pizza 20261124-2222 was not found. | Fail |
 
@@ -41,7 +41,7 @@ Tool parts that I chose: Part 2 and Part 4
 - Step 4.3, failure message for the wrong title: Timed out retrying after 10000ms; expected 'Web Form' but actual was 'Web form'.
 - Step 4.3, corrected test: 1 passing, 0 failing; duration 2 seconds.
 - Step 4.6, tool and calories in the answer of POST /api/pizza: Knife, 250 calories per slice; vegetarian: true.
-- Step 4.7, the line of the admin list that shows your pizza: - Step 4.7, the line of the admin list that shows your pizza: Lab Pizza 20261125-003932 (tool=Scissors, ingredients_number=5).
+- Step 4.7, the line of the admin list that shows your pizza: Lab Pizza 20261125-003932 (tool=Scissors, ingredients_number=5).
 - Step 4.8, run 1, result, duration and pizza name: 1 passing, 0 failing; 8 seconds; Lab Pizza 20261125-004448.
 - Step 4.8, run 2, result, duration and pizza name: 1 passing, 0 failing; 8 seconds; Lab Pizza 20261125-005029.
 - Step 4.9 (optional), browser and result:
@@ -62,6 +62,7 @@ The test could check the vegetarian option and verify that the API response says
 
 ### 4. Comparing Selenium and Cypress
 
+In my Selenium runs, five tests passed in 21.367 and 22.302 seconds, while the Cypress QP-01 test passed in 8 seconds.
 Selenium uses explicit waits with `WebDriverWait`, while Cypress automatically retries commands and assertions until they pass or reach the 10-second timeout. Cypress also allowed me to wait for the pizza API request directly using `cy.intercept()` and `cy.wait()`. I found Cypress quicker to write for QP-01 because most actions and checks could be written in one test file, while Selenium required page object classes and separate Java methods. Cypress gave a clear report, such as 1 passing and 0 failing in 8 seconds, while Selenium provided Maven test reports with the number of tests and failures. Both tools were useful, but Cypress was easier to read and work with for this scenario.
 
 ### 5. Choosing a tool for Project 2
