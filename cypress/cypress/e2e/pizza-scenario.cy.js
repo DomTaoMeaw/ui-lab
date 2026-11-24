@@ -25,7 +25,8 @@ describe('QP-01 A custom pizza reaches the admin list', () => {
     cy.contains('label', 'Custom Pizza Name').should('be.visible')
 
         // Step 3: fill in the restrictions and the name
-    const pizzaName = 'Lab Pizza ' + stamp()
+    const pizzaName = 'Lab Pizza ' + stamp() 
+    cy.writeFile('cypress/results/latest-pizza.txt', pizzaName)
 
     cy.contains('label', 'Max Calories per Slice')
       .siblings('input')
