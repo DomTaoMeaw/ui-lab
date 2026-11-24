@@ -50,16 +50,28 @@ Tool parts that I chose: Part 2 and Part 4
 
 ### 1. Max Calories per Slice locator
 
-The Max Calories per Slice field is located through its label because the page uses the same ID, `floating_filled`, for multiple number input fields. Using that ID could make Selenium select the wrong input. The test uses the label text to identify the correct field more clearly. The page developer could give this input a unique ID, such as `max-calories`. This would make the locator shorter and more reliable for testers.
+The Max Calories per Slice field is located through its label because the page uses the same ID, `floating_filled`, for multiple number input fields. If the test uses that ID, Selenium might select the wrong input. The page developer could give this field a unique ID, such as `max-calories`. This would make the locator shorter and more reliable because the tester could identify the correct field directly.
 
 ### 2. Test oracle in Step 7
 
-Step 7 uses a consistency oracle because it compares the tool in the recommendation with the tool stored in the admin list. Both values should be the same for the same pizza. For example, if the recommendation shows `Scissors` but the admin list shows `Knife`, the test will detect the mismatch. This can catch a fault where QuickPizza saves or displays the wrong tool in the admin list.
+Step 7 uses a consistency oracle because it compares the tool in the pizza recommendation with the tool stored in the admin list. Both values should be the same for the same pizza. For example, if the recommendation shows `Scissors` but the admin list shows `Knife`, the test will detect the mismatch. This could catch a fault where QuickPizza saves or displays the wrong tool in the admin list.
 
 ### 3. Checking whether the pizza is vegetarian
 
-The test could check that the vegetarian option is selected before requesting a pizza. However, this only confirms that the option was selected, not that the recommended pizza is actually vegetarian. A stronger check would verify the ingredients of the recommended pizza and confirm that none of them contain meat. The test would need the ingredient information in the recommendation or access to another reliable source, such as the application's recipe data.
+The test could check the vegetarian option and verify that the API response says `vegetarian: true`. It could also check that every ingredient in the response has `vegetarian: true`. In my API response, the pizza was marked as vegetarian, and all five ingredients had the vegetarian value set to true. The test would need the vegetarian information from the API response or another reliable source, such as the application's recipe data.
+
+### 4. Comparing Selenium and Cypress
+
+Selenium uses explicit waits with `WebDriverWait`, while Cypress automatically retries commands and assertions until they pass or reach the 10-second timeout. Cypress also allowed me to wait for the pizza API request directly using `cy.intercept()` and `cy.wait()`. I found Cypress quicker to write for QP-01 because most actions and checks could be written in one test file, while Selenium required page object classes and separate Java methods. Cypress gave a clear report, such as 1 passing and 0 failing in 8 seconds, while Selenium provided Maven test reports with the number of tests and failures. Both tools were useful, but Cypress was easier to read and work with for this scenario.
+
+### 5. Choosing a tool for Project 2
+
+I would choose Cypress for the automated UI tests of Project 2. First, it was quicker to create and run the QP-01 scenario, with the test completing in about 8 seconds. Second, `cy.intercept()` made it easy to check the API request and response together with the page content. These features would help me write and maintain UI tests more easily.
 
 ### 6. Part 2 – Selenium Page Object Model
 
 If QuickPizza changes the locator of the calories box, I have to update the locator in `QP01Test` because it directly finds the element using XPath. In `QP01PageObjectTest`, I do not need to change the test itself because the locator is inside the `HomePage` class. I only need to update the `MAX_CALORIES` locator in `HomePage.java`. This makes the repair smaller and easier because the page object keeps the page locators in one place.
+
+### 7. Part 4 – Cypress and a single test
+
+QP-01 has to be a single test because Cypress clears cookies before each test. The cookie is important because QuickPizza uses it to identify the server that stores the pizza recommendations. If Steps 6 and 7 were placed in a second test, Cypress could start with a different cookie and the admin page might show a different server's pizza list. As a result, the test might not find the pizza created in Steps 1 to 5. Keeping all seven steps in one test helps the scenario use the same session and verify the pizza correctly.
