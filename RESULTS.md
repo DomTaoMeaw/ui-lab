@@ -7,10 +7,10 @@ Tool parts that I chose: Part 2 and Part 4
 
 - Step 0.1, Chrome version: 158.0.8127.89 (Official Build) (64-bit)
 - Step 0.3, ChromeDriver version: 158.0.8127.88, C:\drivers\chromedriver-win64\chromedriver.exe
-- Step 0.4, locator of Pizza, Please!:
-- Step 0.4, locator of Excluded tools:
-- Step 0.4, locator of Must be vegetarian:
-- Step 0.4, locator of Custom Pizza Name:
+- Step 0.4, locator of Pizza, Please!: xpath=//button[normalize-space()='Pizza, Please!']
+- Step 0.4, locator of Excluded tools: css=select
+- Step 0.4, locator of Must be vegetarian: ss=input#default-checkbox
+- Step 0.4, locator of Custom Pizza Name: css=input#pizza-name
 - Step 0.5, pizza name, tool and calories of the run by hand:
 
 | Step | Actual result | Pass or fail |
