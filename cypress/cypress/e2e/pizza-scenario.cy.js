@@ -79,5 +79,6 @@ describe('QP-01 A custom pizza reaches the admin list', () => {
         .should('contain', '(tool=' + tool + ',')
 
     })
+    cy.screenshot('QP01-admin-list')
   })
 })
