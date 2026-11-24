@@ -2,6 +2,13 @@
 // Goal: check that a pizza request with restrictions gives a pizza
 // that keeps them, that rating a pizza needs a login, and that the
 // admin sees the new pizza.
+// Date and time of the run as yyyyMMdd-HHmmss
+function stamp() {
+  const d = new Date()
+  const two = (n) => String(n).padStart(2, '0')
+  return d.getFullYear() + two(d.getMonth() + 1) + two(d.getDate()) +
+    '-' + two(d.getHours()) + two(d.getMinutes()) + two(d.getSeconds())
+}
 
 describe('QP-01 A custom pizza reaches the admin list', () => {
   it('follows the steps of QP-01', () => {
@@ -16,5 +23,28 @@ describe('QP-01 A custom pizza reaches the admin list', () => {
     cy.contains('label', 'Excluded tools').should('be.visible')
     cy.contains('label', 'Must be vegetarian').should('be.visible')
     cy.contains('label', 'Custom Pizza Name').should('be.visible')
+
+        // Step 3: fill in the restrictions and the name
+    const pizzaName = 'Lab Pizza ' + stamp()
+
+    cy.contains('label', 'Max Calories per Slice')
+      .siblings('input')
+      .clear()
+      .type('600')
+      .should('have.value', '600')
+
+    cy.get('select').select('Knife')
+    cy.contains('option', 'Knife').should('be.selected')
+
+    cy.get('#default-checkbox').check().should('be.checked')
+
+    cy.get('input#pizza-name').type(pizzaName)
+    cy.get('input#pizza-name').should('have.value', pizzaName)
+
+        // Step 4: ask for a pizza
+    cy.contains('button', 'Pizza, Please!').click()
+
+    // Step 5: check the recommendation
+    cy.contains(pizzaName).should('be.visible')
   })
 })
