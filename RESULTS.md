@@ -29,10 +29,10 @@ Tool parts that I chose: Part 2 and Part 4
 ## Part 2: Selenium WebDriver in Java
 
 - Step 2.4, the failure line for the wrong title: FirstTest.webFormOpens:24 expected: <Web Form> but was: <Web form>
-- Step 2.15, QP01Test run 1, result and time:
-- Step 2.15, QP01Test run 2, result and time:
-- Step 2.20, full run 1, time and number of tests:
-- Step 2.20, full run 2, time and number of tests:
+- Step 2.15, QP01Test run 1: 1 test, 0 failures, 0 errors; BUILD SUCCESS; 7.763 s.
+- Step 2.15, QP01Test run 2: 1 test, 0 failures, 0 errors; BUILD SUCCESS; 7.546 s.
+- Step 2.20, full run 1: 5 tests, 0 failures, 0 errors, 0 skipped; BUILD SUCCESS; 21.367 s; finished 24 Nov 2026 23:43:48 (+07:00).
+- Step 2.20, full run 2: 5 tests, 0 failures, 0 errors, 0 skipped; BUILD SUCCESS; 22.302 s; finished 24 Nov 2026 23:44:33 (+07:00).
 
 ## Part 4: Cypress
 
