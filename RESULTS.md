@@ -12,16 +12,19 @@ Tool parts that I chose: Part 2 and Part 4
 - Step 0.4, locator of Must be vegetarian: ss=input#default-checkbox
 - Step 0.4, locator of Custom Pizza Name: css=input#pizza-name
 - Step 0.5, pizza name, tool and calories of the run by hand:
+  - Pizza name: Lab Pizza 20261124-2222
+  - Tool: Scissors
+  - Calories: 300 per slice
 
 | Step | Actual result | Pass or fail |
 |------|---------------|--------------|
-| 1    |               |              |
-| 2    |               |              |
-| 3    |               |              |
-| 4    |               |              |
-| 5    |               |              |
-| 6    |               |              |
-| 7    |               |              |
+| 1 | Opened QuickPizza and checked the page heading. | Pass |
+| 2 | Opened Advanced and checked the four advanced fields. | Pass |
+| 3 | Entered 600 calories, excluded Knife, selected vegetarian, and entered Lab Pizza 20261124-2222. | Pass |
+| 4 | Received Lab Pizza 20261124-2222 with Scissors and 300 calories per slice. | Pass |
+| 5 | [Enter the actual result after clicking Love it!] | Pass |
+| 6 | Opened the admin page, logged in with admin/admin, and found "Latest pizza recommendations". | Pass |
+| 7 | Refreshed the admin page and searched again, but Lab Pizza 20261124-2222 was not found. | Fail |
 
 ## Part 2: Selenium WebDriver in Java
 
