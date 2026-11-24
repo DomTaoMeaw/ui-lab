@@ -42,9 +42,30 @@ describe('QP-01 A custom pizza reaches the admin list', () => {
     cy.get('input#pizza-name').should('have.value', pizzaName)
 
         // Step 4: ask for a pizza
-    cy.contains('button', 'Pizza, Please!').click()
+        
+    cy.intercept('POST', '/api/pizza').as('pizza')
+    cy.get('button[name="pizza-please"]').click()
+    cy.wait('@pizza').its('response.statusCode').should('eq', 200)
 
-    // Step 5: check the recommendation
-    cy.contains(pizzaName).should('be.visible')
+    cy.get('@pizza').then(({ request, response }) => {
+      // the request carries the limit from Step 3
+      expect(request.body.maxCaloriesPerSlice).to.equal(600)
+
+      const { pizza, calories } = response.body
+
+      // the page shows the pizza that the server sent
+      cy.contains('#recommendations p', 'Tool:')
+        .should('have.text', 'Tool: ' + pizza.tool)
+
+      cy.contains('#recommendations p', 'Calories per slice:')
+        .should('have.text', 'Calories per slice: ' + calories)
+
+      // keep the tool for Step 7
+      cy.wrap(pizza.tool).as('tool')
+    })
+
+        // Step 5: rate the pizza without logging in
+    cy.get('button[name="rate-5"]').click()
+    cy.get('#rate-result').should('have.text', 'Please log in first.')
   })
 })
